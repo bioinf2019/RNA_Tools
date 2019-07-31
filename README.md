@@ -14,8 +14,8 @@ In this repository you will find the python script of software called "All_In_On
 
 Before to run the script in Windows you need to install:
 
-* [Python 3.5.x](../download/python-3.5.0.exe)
-* [PyQt5](../download/PyQt5-5.6-gpl-Py3.5-Qt5.6.0-x32-2.exe)
+* [Python 3.5.x](/download/python-3.5.0.exe)
+* [PyQt5](/download/PyQt5-5.6-gpl-Py3.5-Qt5.6.0-x32-2.exe)
 
 #### Installing Python3.5
 
