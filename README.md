@@ -25,75 +25,75 @@ These are the files that we have after download the previous files
 
 Double click on the Python installer and follow the steps
 
-![](/images/installing_python3.5_00.PNG)
+![](/images/installing_python3.5_00.png)
 
 Step 1:
 
-![](/images/installing_python3.5_01.PNG)
+![](/images/installing_python3.5_01.png)
 
 Step 2:
 
-![](/images/installing_python3.5_02.PNG)
+![](/images/installing_python3.5_02.png)
 
 Step 3:
 
-![](/images/installing_python3.5_03.PNG)
+![](/images/installing_python3.5_03.png)
 
 #### Installing PyQt5
 
 Double click on the PyQt5 installer and follow the steps
 
-![](/images/installing_pyQT5.PNG)
+![](/images/installing_pyQT5.png)
 
 Step 1:
 
-![](/images/installing_pyQT5_00.PNG)
+![](/images/installing_pyQT5_00.png)
 
 Step 2:
 
-![](/images/installing_pyQT5_01.PNG)
+![](/images/installing_pyQT5_01.png)
 
 Step 3:
 
-![](/images/installing_pyQT5_02.PNG)
+![](/images/installing_pyQT5_02.png)
 
 Step 4:
 
-![](/images/installing_pyQT5_03.PNG)
+![](/images/installing_pyQT5_03.png)
 
 Step 5:
 
-![](/images/installing_pyQT5_04.PNG)
+![](/images/installing_pyQT5_04.png)
 
 #### Running the script on windows
 
 The final step for running the script is open the python script directory
 
-![](/images/runnig_the_script_00.PNG)
+![](/images/runnig_the_script_00.png)
 
 Right click on the path and select copy
 
-![](/images/runnig_the_script_01.PNG)
+![](/images/runnig_the_script_01.png)
 
 Click on the start button
 
-![](/images/runnig_the_script_02.PNG)
+![](/images/runnig_the_script_02.png)
 
 Type the word **cmd** and press **ENTER**
 
-![](/images/runnig_the_script_03.PNG)
+![](/images/runnig_the_script_03.png)
 
 Type **cd** and paste the copied path and press **ENTER**
 
-![](/images/runnig_the_script_04.PNG)
+![](/images/runnig_the_script_04.png)
 
 Then type the word **si** that are the inital letters od the script that we want to run, and press **TAB** and then press **ENTER**
 
-![](/images/runnig_the_script_05.PNG)
+![](/images/runnig_the_script_05.png)
 
 Here we have the software running
 
-![](/images/runnig_the_script_06.PNG)
+![](/images/runnig_the_script_06.png)
 
 ### **Linux (Ubuntu)**
 
