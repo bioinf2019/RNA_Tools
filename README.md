@@ -21,7 +21,7 @@ Before to run the script in Windows you need to install:
 
 These are the files that we have after download the previous files
 
-![](../images/installing_python3.5.PNG)
+![](/images/installing_python3.5.png)
 
 Double click on the Python installer and follow the steps
 
