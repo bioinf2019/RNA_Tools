@@ -10,7 +10,7 @@ In this repository you will find the python script of software called "All_In_On
 * The software GUI was developed using PyQt5
 
 ## Requirenments before run the script
-### **Windows**
+### **Windows** [Instructive video](https://www.youtube.com/embed/X0S5jYU3vnU)
 
 Before to run the script in Windows you need to download:
 
@@ -103,13 +103,8 @@ Here we have the software running.
 
 ![](/images/runnig_the_script_06.png)
 
-#### This is the video about installing and runnig on Windows
 
-This video you can download and watch once you wan to run the script.
-
-[Instructive video](https://www.youtube.com/embed/X0S5jYU3vnU)
-
-### **Linux (Ubuntu)**
+### **Linux (Ubuntu)** [Instructive video](https://www.youtube.com/embed/FC1ttM7NY-0)
 
 Before to run the script in Windows you need to download:
 
@@ -185,8 +180,5 @@ And finally will appear the software window
 
 ![](/images/installation_pip3_09.png)
 
-#### This is the video about installing and runnig on Ubuntu
 
-This video you can download and watch once you wan to run the script.
 
-[Instructive video](https://www.youtube.com/embed/FC1ttM7NY-0)
