@@ -10,8 +10,29 @@ import sys
 import math
 import datetime
 import time
+
 flag = True
 #target name
+def openPastedSequence(fileName): 
+   file = open(fileName, 'r')
+   seq_1 = ''   
+   for line in file:
+      if (line[0] != '>'):
+         x = 0
+         for x in range(0, len(line)):
+            if((line[x] != '\n')):
+               seq_1 += line[x]	
+   file.close()  
+   return seq_1	
+   
+#validation functiona
+def validatorOfCharacters(seq):
+   value = False
+   for x in range(len(seq)):
+      if ((seq[x] != 'A') and (seq[x] != 'T') and (seq[x] != 'G') and (seq[x] != 'C') and (seq[x] != 'U')):
+         value = True
+   return value
+	
 
 def format(value):
    return "%.3f" % value
@@ -225,182 +246,204 @@ class Window(QWidget):
    def generateMultimeric(self):     
       siRNAsSenseStrandFiveThree_21_mer = self.nameLine_1.text()
       siRNAsAntienseStrandFiveThree_21_mer = self.nameLine_2.text()
-      reverseComplementOfTheLastTwoNucleotides = siRNAsAntienseStrandFiveThree_21_mer[-2] + siRNAsAntienseStrandFiveThree_21_mer[-1]
-      reverseComplementOfTheLastTwoNucleotides = complementSeqUracil(reverseComplementOfTheLastTwoNucleotides)
-      sequence_23_mer = invertSeq(reverseComplementOfTheLastTwoNucleotides) + siRNAsSenseStrandFiveThree_21_mer
-      replacedNucleotidesSequence = sequence_23_mer.replace('U','T')  
-      complementSequence = complementSeq(replacedNucleotidesSequence) 
-      invertedComplementSequence = invertSeq(complementSequence) 
-      minorLoop = 'TTGTT'
-      largerLoop = 'TGACAGGAAG'
-      completeLinearSequenceGeneratorOf_shRNA = minorLoop + replacedNucleotidesSequence + largerLoop + invertedComplementSequence
-      inicialPortion = completeLinearSequenceGeneratorOf_shRNA[:16]
-      finalPortion = completeLinearSequenceGeneratorOf_shRNA[16:]
-      shRNA = finalPortion + inicialPortion
+	  #validation of characters
+      value_1 = validatorOfCharacters(siRNAsSenseStrandFiveThree_21_mer)
+      value_2 = validatorOfCharacters(siRNAsAntienseStrandFiveThree_21_mer)
       now = datetime.datetime.now()
-      saveFile = open(self.nameLine_001.text() + '_Monovalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('                         siRNA and shRNA designer (SSD)\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('Version 1.0 - 2018\n')
-      saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('>Monovalent_shRNA\n')
-      saveFile.write(shRNA)
-      saveFile.close()
-      self.nameLine_4.setText(shRNA)
-      #self.nameLine_1.setText("")
-      #self.nameLine_2.setText("")	
-     # self.nameLine_3.setText("")	  
-      #self.nameLine_001.setText("")	  
-      QMessageBox.about(self, "Process", "The Monovalent shRNA sequence was successfully generated")
+      outputName = self.nameLine_001.text()
+      if (outputName == ''):
+         QMessageBox.about(self, "Warning", "Please enter a Target name")
+      else:	  
+         if ((siRNAsAntienseStrandFiveThree_21_mer == '') or siRNAsSenseStrandFiveThree_21_mer == ''):
+            QMessageBox.about(self, "Warning", "Please complete with all the required sequences")
+         else:
+            if (value_1 == True or value_2 == True):
+               self.nameLine_1.setText('')
+               self.nameLine_2.setText('') 
+               self.generateButton_1.setEnabled(False)		 
+               QMessageBox.about(self, "Warning", "Error: Contains illegal characters\nYou must enter a secuence with this nucleotides 'AGTCU'")
+            else:
+               reverseComplementOfTheLastTwoNucleotides = siRNAsAntienseStrandFiveThree_21_mer[-2] + siRNAsAntienseStrandFiveThree_21_mer[-1]
+               reverseComplementOfTheLastTwoNucleotides = complementSeqUracil(reverseComplementOfTheLastTwoNucleotides)
+               sequence_23_mer = invertSeq(reverseComplementOfTheLastTwoNucleotides) + siRNAsSenseStrandFiveThree_21_mer
+               replacedNucleotidesSequence = sequence_23_mer.replace('U','T')  
+               complementSequence = complementSeq(replacedNucleotidesSequence) 
+               invertedComplementSequence = invertSeq(complementSequence) 
+               minorLoop = 'CTCTC'
+               largerLoop = 'TGACAGGAAG'
+               completeLinearSequenceGeneratorOf_shRNA = minorLoop + replacedNucleotidesSequence + largerLoop + invertedComplementSequence
+               inicialPortion = completeLinearSequenceGeneratorOf_shRNA[:16]
+               finalPortion = completeLinearSequenceGeneratorOf_shRNA[16:]
+               shRNA = finalPortion + inicialPortion	 
+               saveFile = open(outputName + '_Monovalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('                         siRNA and shRNA designer (SSD)\n')
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('Version 1.0 - 2018\n')
+               saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
+               saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
+               saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
+               saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
+               saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('>Monovalent_shRNA\n')
+               saveFile.write(shRNA)
+               saveFile.close()
+               self.nameLine_4.setText(shRNA)
+               #Success Message	  
+               QMessageBox.about(self, "Process", "The Monovalent shRNA sequence was successfully generated")
 
    def automaticGenerateMultimeric_shRNA(self):
-      #Generate siRNAs ordered by Gibbs free energy
-      mRNA_Sequence = '--' + self.nameLine_20.toPlainText()
-      mRNA_Sequence = mRNA_Sequence.replace('T','U')
-      first_nt = 0
-      last_nt = 23
-      flag = True
-      sequence = []
-      deltaGibbs = []
-      while(flag == True):
-         if (last_nt <= (len(mRNA_Sequence))):
-            sequence.append(mRNA_Sequence[first_nt:last_nt])
-            deltaGibbs.append(deltaGibbCalculator(mRNA_Sequence[first_nt:last_nt]))
-         else:
-            flag = False
-         first_nt+=1
-         last_nt+=1
-	  #This part sorts the sequences by gibbs free energy 
-      positionOfSeq = []		 
-      for x in range(len(sequence)):
-         positionOfSeq.append(x)     
-      bubblesort(positionOfSeq,sequence, deltaGibbs)
-
-      sense = []
-      antisense = []
-
-      for x in range(len(sequence)):
-         sense.append(sequence[x][2:24])
-         antisense.append(complementSeqUracil(invertSeq(sequence[x][0:21])))
-      x = 0
-	  #Send the first pair sequences
-	  #To monovalent tab
-      siRNAsSenseStrandFiveThree_21_mer = sense[x]
-      siRNAsAntienseStrandFiveThree_21_mer = antisense[x]	  
-	  #To bivalent tab
-      siRNAsSenseStrandFiveThree_21_merNumberOne = sense[x]
-      siRNAsAntienseStrandFiveThree_21_merNumberOne = antisense[x]	  
-	  #To trivalent tab
-      siRNAsSenseStrandFiveThree_21_merNumberOne = sense[x]
-      siRNAsAntienseStrandFiveThree_21_merNumberOne = antisense[x]	  		 
-      y = x + 1
-      while(abs(positionOfSeq[x] - positionOfSeq[y]) <= 23):
-         y = y + 1
-	  #Send the second pair sequences
-	  #To bivalent tab
-      siRNAsSenseStrandFiveThree_21_merNumberTwo = sense[y]
-      siRNAsAntienseStrandFiveThree_21_merNumberTwo = antisense[y]	  
-	  #To trivalent tab
-      siRNAsSenseStrandFiveThree_21_merNumberTwo = sense[y]
-      siRNAsAntienseStrandFiveThree_21_merNumberTwo = antisense[y]	  	
-      y = y + 1		 
-      while(abs(positionOfSeq[x] - positionOfSeq[y]) <= 23):
-         y = y + 1
-      #Send the third pair sequences
-	  #To trivalent tab
-      siRNAsSenseStrandFiveThree_21_merNumberThree = sense[y]
-      siRNAsAntienseStrandFiveThree_21_merNumberThree = antisense[y]	  
-      targetName = self.nameLine_19.text()	  
-  
-      #Monovalent shRNA generation
-      reverseComplementOfTheLastTwoNucleotides = siRNAsAntienseStrandFiveThree_21_mer[-2] + siRNAsAntienseStrandFiveThree_21_mer[-1]
-      reverseComplementOfTheLastTwoNucleotides = complementSeqUracil(reverseComplementOfTheLastTwoNucleotides)
-      sequence_23_mer = invertSeq(reverseComplementOfTheLastTwoNucleotides) + siRNAsSenseStrandFiveThree_21_mer
-      replacedNucleotidesSequence = sequence_23_mer.replace('U','T')  
-      complementSequence = complementSeq(replacedNucleotidesSequence) 
-      invertedComplementSequence = invertSeq(complementSequence) 
-      minorLoop = 'TTGTT'
-      largerLoop = 'TGACAGGAAG'
-      completeLinearSequenceGeneratorOf_shRNA = minorLoop + replacedNucleotidesSequence + largerLoop + invertedComplementSequence
-      inicialPortion = completeLinearSequenceGeneratorOf_shRNA[:16]
-      finalPortion = completeLinearSequenceGeneratorOf_shRNA[16:]
-      shRNA = finalPortion + inicialPortion
-      now = datetime.datetime.now()
-      saveFile = open(targetName + '_Monovalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('                         siRNA and shRNA designer (SSD)\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('Version 1.0 - 2018\n')
-      saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('>Monovalent_shRNA\n')
-      saveFile.write(shRNA)
-      saveFile.close()
-      self.nameLine_4.setText(shRNA)
-		  
-      #Bivalent shRNA generation	
-      minorLoopNumberOne = 'TTGTT'
-      minorLoopNumberTwo = 'CCACC'
-      largerLoopNumberAll = 'TGACAGGAAG'
-      completeLinearSequence = multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberOne, siRNAsAntienseStrandFiveThree_21_merNumberOne, minorLoopNumberOne, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberTwo, siRNAsAntienseStrandFiveThree_21_merNumberTwo, minorLoopNumberTwo, largerLoopNumberAll)
-      inicialPortion = completeLinearSequence[:16]
-      finalPortion = completeLinearSequence[16:]
-      BivalentMultimeric_shRNA = finalPortion + inicialPortion
-      now = datetime.datetime.now()	  
-      saveFile = open(targetName + '_Bivalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('                         siRNA and shRNA designer (SSD)\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('Version 1.0 - 2018\n')
-      saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('>_Bivalent_shRNA_\n')
-      saveFile.write(BivalentMultimeric_shRNA)
-      saveFile.close()
-      self.nameLine_10.setText(BivalentMultimeric_shRNA)  
-		  
-      #Trivalent shRNA generation  	  
-      minorLoopNumberOne = 'TTGTT'
-      minorLoopNumberTwo = 'CCACC'
-      minorLoopNumberThree = 'CGTGC'
-      largerLoopNumberAll = 'TGACAGGAAG'
-      completeLinearSequence = multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberOne, siRNAsAntienseStrandFiveThree_21_merNumberOne, minorLoopNumberOne, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberTwo, siRNAsAntienseStrandFiveThree_21_merNumberTwo, minorLoopNumberTwo, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberThree, siRNAsAntienseStrandFiveThree_21_merNumberThree, minorLoopNumberThree, largerLoopNumberAll)
-      inicialPortion = completeLinearSequence[:16]
-      finalPortion = completeLinearSequence[16:]
-      now = datetime.datetime.now()	  
-      TrivalentMultimeric_shRNA = finalPortion + inicialPortion
-      saveFile = open(targetName + '_Trivalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('                         siRNA and shRNA designer (SSD)\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('Version 1.0 - 2018\n')
-      saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('>_Trivalent_shRNA_\n')	  
-      saveFile.write(TrivalentMultimeric_shRNA)
-      saveFile.close()
-      self.nameLine_18.setText(TrivalentMultimeric_shRNA)  
-	  
-      #Success Message		  
-      QMessageBox.about(self, "Process(automatic generation of shRNAs)", "The generation of Monovalent, Bivalent and Trivalent shRNAs was successfully done")		  	  
+      rawSequence = self.nameLine_20.toPlainText()
+      now = datetime.datetime.now()		 
+      outputName = self.nameLine_19.text()
+      if (outputName == ''):
+         QMessageBox.about(self, "Warning", "Please enter a Target name")
+      else:	
+	     #SAve the pasted sequence in a file
+         sequenceName = outputName + now.strftime("_used_sequence_SSD %Y-%m-%d_[%H h %M min].txt")	  
+         saveFile = open(sequenceName, 'w')	
+         saveFile.write('>' + outputName + '\n')		 
+         saveFile.write(rawSequence)
+         saveFile.close()  		 
+         mRNA_Sequence = openPastedSequence(sequenceName)		 
+         #validation of characters	  
+         value_1 = validatorOfCharacters(mRNA_Sequence)
+         if (value_1 == True):
+            self.nameLine_20.setText('')
+            self.checkbox1.setEnabled(False)
+            self.checkbox2.setEnabled(False)
+            self.checkbox3.setEnabled(False)		 
+            QMessageBox.about(self, "Warning", "Error: Contains illegal characters\nYou must enter a secuence with this nucleotides 'AGTCU'")
+         else:   
+            #Generate siRNAs ordered by Gibbs free energy
+            mRNA_Sequence = '--' + mRNA_Sequence
+            mRNA_Sequence = mRNA_Sequence.replace('T','U')
+            first_nt = 0
+            last_nt = 23
+            flag = True
+            sequence = []
+            deltaGibbs = []
+            while(flag == True):
+               if (last_nt <= (len(mRNA_Sequence))):
+                  sequence.append(mRNA_Sequence[first_nt:last_nt])
+                  deltaGibbs.append(deltaGibbCalculator(mRNA_Sequence[first_nt:last_nt]))
+               else:
+                  flag = False
+               first_nt+=1
+               last_nt+=1
+	        #This part sorts the sequences by gibbs free energy 
+            positionOfSeq = []		 
+            for x in range(len(sequence)):
+               positionOfSeq.append(x)     
+            bubblesort(positionOfSeq,sequence, deltaGibbs)
+            sense = []
+            antisense = []
+            for x in range(len(sequence)):
+               sense.append(sequence[x][2:24])
+               antisense.append(complementSeqUracil(invertSeq(sequence[x][0:21])))
+            x = 0
+	        #Send the first pair sequences
+	        #To monovalent tab
+            siRNAsSenseStrandFiveThree_21_mer = sense[x]
+            siRNAsAntienseStrandFiveThree_21_mer = antisense[x]	  
+	        #To bivalent tab
+            siRNAsSenseStrandFiveThree_21_merNumberOne = sense[x]
+            siRNAsAntienseStrandFiveThree_21_merNumberOne = antisense[x]	  
+	        #To trivalent tab
+            siRNAsSenseStrandFiveThree_21_merNumberOne = sense[x]
+            siRNAsAntienseStrandFiveThree_21_merNumberOne = antisense[x]	  		 
+            y = x + 1
+            while(abs(positionOfSeq[x] - positionOfSeq[y]) <= 23):
+               y = y + 1
+	        #Send the second pair sequences
+	        #To bivalent tab
+            siRNAsSenseStrandFiveThree_21_merNumberTwo = sense[y]
+            siRNAsAntienseStrandFiveThree_21_merNumberTwo = antisense[y]	  
+	        #To trivalent tab
+            siRNAsSenseStrandFiveThree_21_merNumberTwo = sense[y]
+            siRNAsAntienseStrandFiveThree_21_merNumberTwo = antisense[y]	  	
+            y = y + 1		 
+            while(abs(positionOfSeq[x] - positionOfSeq[y]) <= 23):
+               y = y + 1
+            #Send the third pair sequences
+	        #To trivalent tab
+            siRNAsSenseStrandFiveThree_21_merNumberThree = sense[y]
+            siRNAsAntienseStrandFiveThree_21_merNumberThree = antisense[y]	  	      
+            #Monovalent shRNA generation
+            reverseComplementOfTheLastTwoNucleotides = siRNAsAntienseStrandFiveThree_21_mer[-2] + siRNAsAntienseStrandFiveThree_21_mer[-1]
+            reverseComplementOfTheLastTwoNucleotides = complementSeqUracil(reverseComplementOfTheLastTwoNucleotides)
+            sequence_23_mer = invertSeq(reverseComplementOfTheLastTwoNucleotides) + siRNAsSenseStrandFiveThree_21_mer
+            replacedNucleotidesSequence = sequence_23_mer.replace('U','T')  
+            complementSequence = complementSeq(replacedNucleotidesSequence) 
+            invertedComplementSequence = invertSeq(complementSequence) 
+            minorLoop = 'CTCTC'
+            largerLoop = 'TGACAGGAAG'
+            completeLinearSequenceGeneratorOf_shRNA = minorLoop + replacedNucleotidesSequence + largerLoop + invertedComplementSequence
+            inicialPortion = completeLinearSequenceGeneratorOf_shRNA[:16]
+            finalPortion = completeLinearSequenceGeneratorOf_shRNA[16:]
+            shRNA = finalPortion + inicialPortion
+            saveFile = open(outputName + '_Monovalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('                         siRNA and shRNA designer (SSD)\n')
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('Version 1.0 - 2018\n')
+            saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
+            saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
+            saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
+            saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
+            saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('>Monovalent_shRNA\n')
+            saveFile.write(shRNA)
+            saveFile.close()
+            #Bivalent shRNA generation	
+            minorLoopNumberOne = 'CTCTC'
+            minorLoopNumberTwo = 'CTCTC'
+            largerLoopNumberAll = 'TGACAGGAAG'
+            completeLinearSequence = multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberOne, siRNAsAntienseStrandFiveThree_21_merNumberOne, minorLoopNumberOne, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberTwo, siRNAsAntienseStrandFiveThree_21_merNumberTwo, minorLoopNumberTwo, largerLoopNumberAll)
+            inicialPortion = completeLinearSequence[:16]
+            finalPortion = completeLinearSequence[16:]
+            BivalentMultimeric_shRNA = finalPortion + inicialPortion	  
+            saveFile = open(outputName + '_Bivalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('                         siRNA and shRNA designer (SSD)\n')
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('Version 1.0 - 2018\n')
+            saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
+            saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
+            saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
+            saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
+            saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('>Bivalent_shRNA\n')
+            saveFile.write(BivalentMultimeric_shRNA)
+            saveFile.close() 
+            #Trivalent shRNA generation  	  
+            minorLoopNumberOne = 'CTCTC'
+            minorLoopNumberTwo = 'CTCTC'
+            minorLoopNumberThree = 'CTCTC'
+            largerLoopNumberAll = 'TGACAGGAAG'
+            completeLinearSequence = multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberOne, siRNAsAntienseStrandFiveThree_21_merNumberOne, minorLoopNumberOne, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberTwo, siRNAsAntienseStrandFiveThree_21_merNumberTwo, minorLoopNumberTwo, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberThree, siRNAsAntienseStrandFiveThree_21_merNumberThree, minorLoopNumberThree, largerLoopNumberAll)
+            inicialPortion = completeLinearSequence[:16]
+            finalPortion = completeLinearSequence[16:]	  
+            TrivalentMultimeric_shRNA = finalPortion + inicialPortion
+            saveFile = open(outputName + '_Trivalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('                         siRNA and shRNA designer (SSD)\n')
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('Version 1.0 - 2018\n')
+            saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
+            saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
+            saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
+            saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
+            saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('>Trivalent_shRNA\n')	  
+            saveFile.write(TrivalentMultimeric_shRNA)
+            saveFile.close()   
+            #Success Message		  
+            QMessageBox.about(self, "Process(automatic generation of shRNAs)", "The generation of Monovalent, Bivalent and Trivalent shRNAs was successfully done")		  	  
 	  
    def tab2UI(self):
       layout=QFormLayout()
@@ -469,32 +512,51 @@ class Window(QWidget):
       siRNAsAntienseStrandFiveThree_21_merNumberOne = self.nameLine_6.text()
       siRNAsSenseStrandFiveThree_21_merNumberTwo = self.nameLine_7.text()
       siRNAsAntienseStrandFiveThree_21_merNumberTwo = self.nameLine_8.text()
-      minorLoopNumberOne = 'TTGTT'
-      minorLoopNumberTwo = 'CCACC'
-      largerLoopNumberAll = 'TGACAGGAAG'
-      completeLinearSequence = multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberOne, siRNAsAntienseStrandFiveThree_21_merNumberOne, minorLoopNumberOne, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberTwo, siRNAsAntienseStrandFiveThree_21_merNumberTwo, minorLoopNumberTwo, largerLoopNumberAll)
-      inicialPortion = completeLinearSequence[:16]
-      finalPortion = completeLinearSequence[16:]
-      BivalentMultimeric_shRNA = finalPortion + inicialPortion
-      now = datetime.datetime.now()	  
-      saveFile = open(self.nameLine_002.text() + '_Bivalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('                         siRNA and shRNA designer (SSD)\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('Version 1.0 - 2018\n')
-      saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('>_Bivalent_shRNA_\n')
-      saveFile.write(BivalentMultimeric_shRNA)
-      saveFile.close()
-      self.nameLine_10.setText(BivalentMultimeric_shRNA)  
-	  
-	  #Success message
-      QMessageBox.about(self, "Process", "The Bivalent shRNA sequence was successfully generated")
+      now = datetime.datetime.now()	
+      outputName = self.nameLine_002.text()	
+      if (outputName == ''):
+         QMessageBox.about(self, "Warning", "Please enter a Target name")
+      else:
+         if ((siRNAsAntienseStrandFiveThree_21_merNumberOne == '') or (siRNAsSenseStrandFiveThree_21_merNumberOne == '') or (siRNAsAntienseStrandFiveThree_21_merNumberTwo == '') or (siRNAsSenseStrandFiveThree_21_merNumberTwo == '')):
+            QMessageBox.about(self, "Warning", "Please complete with all the required sequences")
+         else:   	  
+	        #validation of characters
+            value_1 = validatorOfCharacters(siRNAsSenseStrandFiveThree_21_merNumberOne)
+            value_2 = validatorOfCharacters(siRNAsAntienseStrandFiveThree_21_merNumberOne)
+            value_3 = validatorOfCharacters(siRNAsSenseStrandFiveThree_21_merNumberTwo)
+            value_4 = validatorOfCharacters(siRNAsAntienseStrandFiveThree_21_merNumberTwo)	  
+            if (value_1 == True or value_2 == True or value_3 == True or value_4 == True):
+               self.nameLine_5.setText('')
+               self.nameLine_6.setText('')
+               self.nameLine_7.setText('')
+               self.nameLine_8.setText('')
+               self.generateButton_2.setEnabled(False)		 
+               QMessageBox.about(self, "Warning", "Error: Contains illegal characters\nYou must enter a secuence with this nucleotides 'AGTCU'")
+            else:	  
+               minorLoopNumberOne = 'CTCTC'
+               minorLoopNumberTwo = 'CTCTC'
+               largerLoopNumberAll = 'TGACAGGAAG'
+               completeLinearSequence = multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberOne, siRNAsAntienseStrandFiveThree_21_merNumberOne, minorLoopNumberOne, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberTwo, siRNAsAntienseStrandFiveThree_21_merNumberTwo, minorLoopNumberTwo, largerLoopNumberAll)
+               inicialPortion = completeLinearSequence[:16]
+               finalPortion = completeLinearSequence[16:]
+               BivalentMultimeric_shRNA = finalPortion + inicialPortion	
+               saveFile = open(outputName + '_Bivalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('                         siRNA and shRNA designer (SSD)\n')
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('Version 1.0 - 2018\n')
+               saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
+               saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
+               saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
+               saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
+               saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('>Bivalent_shRNA\n')
+               saveFile.write(BivalentMultimeric_shRNA)
+               saveFile.close()
+               self.nameLine_10.setText(BivalentMultimeric_shRNA)  	  
+	           #Success message
+               QMessageBox.about(self, "Process", "The Bivalent shRNA sequence was successfully generated")
 	  
    def tab3UI(self):
       layout=QFormLayout()
@@ -573,34 +635,56 @@ class Window(QWidget):
       siRNAsAntienseStrandFiveThree_21_merNumberTwo = self.nameLine_14.text()
       siRNAsSenseStrandFiveThree_21_merNumberThree = self.nameLine_15.text()
       siRNAsAntienseStrandFiveThree_21_merNumberThree = self.nameLine_16.text()
-  	  
-      minorLoopNumberOne = 'TTGTT'
-      minorLoopNumberTwo = 'CCACC'
-      minorLoopNumberThree = 'CGTGC'
-      largerLoopNumberAll = 'TGACAGGAAG'
-      completeLinearSequence = multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberOne, siRNAsAntienseStrandFiveThree_21_merNumberOne, minorLoopNumberOne, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberTwo, siRNAsAntienseStrandFiveThree_21_merNumberTwo, minorLoopNumberTwo, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberThree, siRNAsAntienseStrandFiveThree_21_merNumberThree, minorLoopNumberThree, largerLoopNumberAll)
-      inicialPortion = completeLinearSequence[:16]
-      finalPortion = completeLinearSequence[16:]
-      now = datetime.datetime.now()	  
-      TrivalentMultimeric_shRNA = finalPortion + inicialPortion
-      saveFile = open(self.nameLine_003.text() + '_Trivalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('                         siRNA and shRNA designer (SSD)\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('Version 1.0 - 2018\n')
-      saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('>_Trivalent_shRNA_\n')	  
-      saveFile.write(TrivalentMultimeric_shRNA)
-      saveFile.close()
-      self.nameLine_18.setText(TrivalentMultimeric_shRNA)  
-	  
-      #Success Message	  
-      QMessageBox.about(self, "Process", "The Trivalent shRNA sequence was successfully generated")	  
+      outputName = self.nameLine_003.text()
+      now = datetime.datetime.now()
+      if (outputName == ''):
+         QMessageBox.about(self, "Warning", "Please enter a Target name")
+      else:
+         if ((siRNAsAntienseStrandFiveThree_21_merNumberOne == '') or (siRNAsSenseStrandFiveThree_21_merNumberOne == '') or (siRNAsAntienseStrandFiveThree_21_merNumberTwo == '') or (siRNAsSenseStrandFiveThree_21_merNumberTwo == '') or (siRNAsAntienseStrandFiveThree_21_merNumberThree == '') or (siRNAsSenseStrandFiveThree_21_merNumberThree == '')):
+            QMessageBox.about(self, "Warning", "Please complete with all the required sequences")
+         else: 	  
+	        #validation of characters
+            value_1 = validatorOfCharacters(siRNAsSenseStrandFiveThree_21_merNumberOne)
+            value_2 = validatorOfCharacters(siRNAsAntienseStrandFiveThree_21_merNumberOne)
+            value_3 = validatorOfCharacters(siRNAsSenseStrandFiveThree_21_merNumberTwo)
+            value_4 = validatorOfCharacters(siRNAsAntienseStrandFiveThree_21_merNumberTwo)
+            value_5 = validatorOfCharacters(siRNAsSenseStrandFiveThree_21_merNumberThree)
+            value_6 = validatorOfCharacters(siRNAsAntienseStrandFiveThree_21_merNumberThree)	  
+            if (value_1 == True or value_2 == True or value_3 == True or value_4 == True or value_5 == True or value_6 == True):
+               self.nameLine_11.setText('')
+               self.nameLine_12.setText('')
+               self.nameLine_13.setText('')
+               self.nameLine_14.setText('')	
+               self.nameLine_15.setText('')
+               self.nameLine_16.setText('')	
+               self.generateButton_3.setEnabled(False)		 
+               QMessageBox.about(self, "Warning", "Error: Contains illegal characters\nYou must enter a secuence with this nucleotides 'AGTCU'")
+            else:	 	  
+               minorLoopNumberOne = 'CTCTC'
+               minorLoopNumberTwo = 'CTCTC'
+               minorLoopNumberThree = 'CTCTC'
+               largerLoopNumberAll = 'TGACAGGAAG'
+               completeLinearSequence = multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberOne, siRNAsAntienseStrandFiveThree_21_merNumberOne, minorLoopNumberOne, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberTwo, siRNAsAntienseStrandFiveThree_21_merNumberTwo, minorLoopNumberTwo, largerLoopNumberAll) + multimeric_shRNA(siRNAsSenseStrandFiveThree_21_merNumberThree, siRNAsAntienseStrandFiveThree_21_merNumberThree, minorLoopNumberThree, largerLoopNumberAll)
+               inicialPortion = completeLinearSequence[:16]
+               finalPortion = completeLinearSequence[16:]	  
+               TrivalentMultimeric_shRNA = finalPortion + inicialPortion         		 
+               saveFile = open(outputName + '_Trivalent_shRNA_' + now.strftime("SSD_%Y-%m-%d_[%H h %M min].txt"), 'w')
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('                         siRNA and shRNA designer (SSD)\n')
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('Version 1.0 - 2018\n')
+               saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
+               saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
+               saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
+               saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
+               saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('>Trivalent_shRNA\n')	  
+               saveFile.write(TrivalentMultimeric_shRNA)
+               saveFile.close()
+               self.nameLine_18.setText(TrivalentMultimeric_shRNA)  	  
+               #Success Message	  
+               QMessageBox.about(self, "Process", "The Trivalent shRNA sequence was successfully generated")	  
 
    def tab4UI(self):
       layout=QFormLayout()
@@ -657,146 +741,176 @@ class Window(QWidget):
                nameList.append(name)
                seqList.append(seq)
          seq_1 = seqList[0]	  
-         self.nameLine_20.setText(seq_1)	  
+         self.nameLine_20.setText(seq_1)
+		 
+ 
 
    def generate_siRNAs_Order_by_position(self):
-      mRNA_Sequence = '--' + self.nameLine_20.toPlainText()
-      mRNA_Sequence = mRNA_Sequence.replace('T','U')
-      first_nt = 0
-      last_nt = 23
-      flag = True
-      sequence = []
-      deltaGibbs = []
-      while(flag == True):
-         if (last_nt <= (len(mRNA_Sequence))):
-            sequence.append(mRNA_Sequence[first_nt:last_nt])
-            deltaGibbs.append(deltaGibbCalculator(mRNA_Sequence[first_nt:last_nt]))
-         else:
-            flag = False
-         first_nt+=1
-         last_nt+=1
-
-      sense = []
-      antisense = []
-
-      for x in range(len(sequence)):
-         sense.append(sequence[x][2:24])
-         antisense.append(complementSeqUracil(invertSeq(sequence[x][0:21])))
+      rawSequence = self.nameLine_20.toPlainText()
       now = datetime.datetime.now()		 
       outputName = self.nameLine_19.text()
-      saveFile = open(outputName + now.strftime("_siRNA_position_SSD %Y-%m-%d_[%H h %M min].txt"), 'w')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('                         siRNA and shRNA designer (SSD)\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('Version 1.0 - 2018\n')
-      saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
-      saveFile.write('siRNAs below are ordered by position.\n')
-      saveFile.write("All sequences are oriented 5' to 3'.\n")
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('Gene name: '+outputName+'\n')
-      saveFile.write('********************************************************************************\n')	  
-      for x in range(len(sense)):
-         saveFile.write('POSITION:'+ str(x + 1) +'\n')#saveFile.write('POSITION:'+ str(x + 4) +'\n')
-         sense[x] = sense[x].replace('U','T')
-         saveFile.write(sense[x])
-         saveFile.write('\nSense RNA:	')
-         sense[x] = sense[x].replace('T','U')
-         saveFile.write(sense[x])
-         saveFile.write('\nAntisense RNA:	')
-         saveFile.write(antisense[x])
-         saveFile.write('\n\n')
-         saveFile.write('RESULTS:\n')
-         saveFile.write('\nDelta Gibbs: ')
-         formatted = format(deltaGibbs[x])
-         saveFile.write(str(formatted))
-         if(deltaGibbs[x] >= 0):
-            saveFile.write(' => Functional siRNA\n')
-         else:
-            saveFile.write(' => Non-Functional siRNA\n')
-		# This section is commented by sugestion of the orientator
-         """if((sense[x].find('AAAA') != -1) or (sense[x].find('UUUU') != -1) or (sense[x].find('GGGG') != -1) or (sense[x].find('CCCC') != -1)):
-            saveFile.write('4 or more idential nuileotdes in a row - inadequate for use:\n')"""
-         saveFile.write('-----------------------------------------------------------------------\n\n')			
-      saveFile.close()	
-	  
-      #Success Message  
-      QMessageBox.about(self, "Process(Ordered by position)", "The Strand Analysis was successfully done")
+      if (outputName == ''):
+         QMessageBox.about(self, "Warning", "Please enter a Target name")
+      else:	
+	     #SAve the pasted sequence in a file
+         sequenceName = outputName + now.strftime("_used_sequence_SSD %Y-%m-%d_[%H h %M min].txt")	  
+         saveFile = open(sequenceName, 'w')	
+         saveFile.write('>' + outputName + '\n')		 
+         saveFile.write(rawSequence)
+         saveFile.close()  		 
+         mRNA_Sequence = openPastedSequence(sequenceName)  		 
+         #validation of characters	  
+         value_1 = validatorOfCharacters(mRNA_Sequence)
+         if (value_1 == True):
+            self.nameLine_19.setText('')		 
+            self.nameLine_20.setText('') 
+            self.checkbox1.setEnabled(False)
+            self.checkbox2.setEnabled(False)
+            self.checkbox3.setEnabled(False)		 
+            QMessageBox.about(self, "Warning", "Error: Contains illegal characters\nYou must enter a secuence with this nucleotides 'AGTCU'")
+         else:   
+            mRNA_Sequence = '--' + mRNA_Sequence
+            mRNA_Sequence = mRNA_Sequence.replace('T','U')
+            first_nt = 0
+            last_nt = 23
+            flag = True
+            sequence = []
+            deltaGibbs = []
+            while(flag == True):
+               if (last_nt <= (len(mRNA_Sequence))):
+                  sequence.append(mRNA_Sequence[first_nt:last_nt])
+                  deltaGibbs.append(deltaGibbCalculator(mRNA_Sequence[first_nt:last_nt]))
+               else:
+                  flag = False
+               first_nt+=1
+               last_nt+=1
+            sense = []
+            antisense = []
+            for x in range(len(sequence)):
+               sense.append(sequence[x][2:24])
+               antisense.append(complementSeqUracil(invertSeq(sequence[x][0:21])))		 	 
+            saveFile = open(outputName + now.strftime("_siRNA_position_SSD %Y-%m-%d_[%H h %M min].txt"), 'w')
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('                         siRNA and shRNA designer (SSD)\n')
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('Version 1.0 - 2018\n')
+            saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
+            saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
+            saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
+            saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
+            saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
+            saveFile.write('siRNAs below are ordered by position.\n')
+            saveFile.write("All sequences are oriented 5' to 3'.\n")
+            saveFile.write('********************************************************************************\n')
+            saveFile.write('Gene name: '+outputName+'\n')
+            saveFile.write('********************************************************************************\n')	  
+            for x in range(len(sense)):
+               saveFile.write('POSITION:'+ str(x + 1) +'\n')
+               saveFile.write('\nSense RNA:	')
+               saveFile.write(sense[x])
+               saveFile.write('\nAntisense RNA:	')
+               saveFile.write(antisense[x])
+               saveFile.write('\n\n')
+               saveFile.write('RESULTS:\n')
+               saveFile.write('\nDelta Gibbs: ')
+               formatted = format(deltaGibbs[x])
+               saveFile.write(str(formatted))
+               if(deltaGibbs[x] >= 0):
+                  saveFile.write(' => Functional siRNA\n')
+               else:
+                  saveFile.write(' => Non-Functional siRNA\n')
+               saveFile.write('-----------------------------------------------------------------------\n\n')			
+            saveFile.close()		  
+            #Success Message  
+            QMessageBox.about(self, "Process(Ordered by position)", "The Strand Analysis was successfully done")
 
    def generate_siRNAs_Order_by_Gibbs_free_energy(self):
-      mRNA_Sequence = '--' + self.nameLine_20.toPlainText()
-      mRNA_Sequence = mRNA_Sequence.replace('T','U')
-      first_nt = 0
-      last_nt = 23
-      flag = True
-      sequence = []
-      deltaGibbs = []
-      while(flag == True):
-         if (last_nt <= (len(mRNA_Sequence))):
-            sequence.append(mRNA_Sequence[first_nt:last_nt])
-            deltaGibbs.append(deltaGibbCalculator(mRNA_Sequence[first_nt:last_nt]))
-         else:
-            flag = False
-         first_nt+=1
-         last_nt+=1
-	  #This part sorts the sequences by gibbs free energy 
-      positionOfSeq = []		 
-      for x in range(len(sequence)):
-         positionOfSeq.append(x)     
-      bubblesort(positionOfSeq,sequence, deltaGibbs)
-
-      sense = []
-      antisense = []
-
-      for x in range(len(sequence)):
-         sense.append(sequence[x][2:24])
-         antisense.append(complementSeqUracil(invertSeq(sequence[x][0:21])))
+      rawSequence = self.nameLine_20.toPlainText()
       now = datetime.datetime.now()		 
       outputName = self.nameLine_19.text()
-      saveFile = open(outputName + now.strftime("_siRNA_Gibbs_SSD %Y-%m-%d [%H h %M min].txt"), 'w')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('                         siRNA and shRNA designer (SSD)\n')
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('Version 1.0 - 2018\n')
-      saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
-      saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
-      saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n\n')
-      saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n')
-      saveFile.write('siRNAs below are ordered from the most functional to the least one\n')
-      saveFile.write("All sequences are oriented 5' to 3'.\n")
-      saveFile.write('********************************************************************************\n')
-      saveFile.write('Gene name: '+outputName+'\n')
-      saveFile.write('********************************************************************************\n')	  
-      for x in range(len(sense)):
-         saveFile.write('POSITION:'+ str(positionOfSeq[x] + 1) +'\n')#saveFile.write('POSITION:'+ str(x + 4) +'\n')
-         sense[x] = sense[x].replace('U','T')
-         saveFile.write(sense[x])
-         saveFile.write('\nSense RNA:	')
-         sense[x] = sense[x].replace('T','U')
-         saveFile.write(sense[x])
-         saveFile.write('\nAntisense RNA:	')
-         saveFile.write(antisense[x])
-         saveFile.write('\n\n')
-         saveFile.write('RESULTS:\n')
-         saveFile.write('\nDelta Gibbs: ')
-         formatted = format(deltaGibbs[x])
-         saveFile.write(str(formatted))
-         if(deltaGibbs[x] >= 0):
-            saveFile.write(' => Functional siRNA\n')
-         else:
-            saveFile.write(' => Non-Functional siRNA\n')
-		# This section is commented by sugestion of the orientator
-         """if((sense[x].find('AAAA') != -1) or (sense[x].find('UUUU') != -1) or (sense[x].find('GGGG') != -1) or (sense[x].find('CCCC') != -1)):
-            saveFile.write('4 or more idential nuileotdes in a row - inadequate for use:\n')"""
-         saveFile.write('-----------------------------------------------------------------------\n\n')			
-      saveFile.close()	
-	  
-      #Success Message 
-      QMessageBox.about(self, "Process(Ordered by Gibbs free energy)", "The Strand Analysis was successfully done")
+      if (outputName == ''):
+         QMessageBox.about(self, "Warning", "Please enter a Target name")
+      else:	
+	     #SAve the pasted sequence in a file
+         sequenceName = outputName + now.strftime("_used_sequence_SSD %Y-%m-%d_[%H h %M min].txt")	  
+         saveFile = open(sequenceName, 'w')	
+         saveFile.write('>' + outputName + '\n')		 
+         saveFile.write(rawSequence)
+         saveFile.close()  		 
+         mRNA_Sequence = openPastedSequence(sequenceName)   
+         #validation of characters	   	  
+         value_1 = validatorOfCharacters(mRNA_Sequence)
+         if (value_1 == True):
+            self.nameLine_20.setText('') 
+            self.checkbox1.setEnabled(False)
+            self.checkbox2.setEnabled(False)
+            self.checkbox3.setEnabled(False)		 
+            QMessageBox.about(self, "Warning", "Error: Contains illegal characters\nYou must enter a secuence with this nucleotides 'AGTCU'")
+         else:   
+            mRNA_Sequence = '--' + mRNA_Sequence
+            mRNA_Sequence = mRNA_Sequence.replace('T','U')
+            first_nt = 0
+            last_nt = 23
+            flag = True
+            sequence = []
+            deltaGibbs = []
+            while(flag == True):
+               if (last_nt <= (len(mRNA_Sequence))):
+                  sequence.append(mRNA_Sequence[first_nt:last_nt])
+                  deltaGibbs.append(deltaGibbCalculator(mRNA_Sequence[first_nt:last_nt]))
+               else:
+                  flag = False
+               first_nt+=1
+               last_nt+=1
+	        #This part sorts the sequences by gibbs free energy 
+            positionOfSeq = []		 
+            for x in range(len(sequence)):
+               positionOfSeq.append(x)     
+            bubblesort(positionOfSeq,sequence, deltaGibbs)   
+            sense = []
+            antisense = []
+            for x in range(len(sequence)):
+               sense.append(sequence[x][2:24])
+               antisense.append(complementSeqUracil(invertSeq(sequence[x][0:21])))
+            now = datetime.datetime.now()		 
+            outputName = self.nameLine_19.text()
+            if (outputName == ''):
+               QMessageBox.about(self, "Warning", "Please enter a Target name")
+            else:		 
+               saveFile = open(outputName + now.strftime("_siRNA_Gibbs_SSD %Y-%m-%d [%H h %M min].txt"), 'w')
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('                         siRNA and shRNA designer (SSD)\n')
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('Version 1.0 - 2018\n')
+               saveFile.write('Authors: Gabriel Jose de Carli (University of Sao Paulo - Brazil)\n')
+               saveFile.write('         Abdon Troche Rotela (National University of Asuncion - Paraguay)\n')
+               saveFile.write('         Danilo Fernandez Rios (National University of Asuncion - Paraguay)\n')
+               saveFile.write('         Greice Lubini (University of Sao Paulo - Brazil)\n')
+               saveFile.write('         Tiago Campos Pereira  (University of Sao Paulo - Brazil)\n\n')
+               saveFile.write('siRNAs below are ordered from the most functional to the least one\n')
+               saveFile.write("All sequences are oriented 5' to 3'.\n")
+               saveFile.write('********************************************************************************\n')
+               saveFile.write('Gene name: '+outputName+'\n')
+               saveFile.write('********************************************************************************\n')	  
+               for x in range(len(sense)):
+                  saveFile.write('POSITION:'+ str(positionOfSeq[x] + 1) +'\n')
+                  saveFile.write('\nSense RNA:	')
+                  saveFile.write(sense[x])
+                  saveFile.write('\nAntisense RNA:	')
+                  saveFile.write(antisense[x])
+                  saveFile.write('\n\n')
+                  saveFile.write('RESULTS:\n')
+                  saveFile.write('\nDelta Gibbs: ')
+                  formatted = format(deltaGibbs[x])
+                  saveFile.write(str(formatted))
+                  if(deltaGibbs[x] >= 0):
+                     saveFile.write(' => Functional siRNA\n')
+                  else:
+                     saveFile.write(' => Non-Functional siRNA\n')
+                  saveFile.write('-----------------------------------------------------------------------\n\n')			
+               saveFile.close()	 
+               #Success Message 
+               QMessageBox.about(self, "Process(Ordered by Gibbs free energy)", "The Strand Analysis was successfully done")
 	    
 	  
    def tab5UI(self):
@@ -808,16 +922,16 @@ class Window(QWidget):
       label_01 = QLabel("The FASTA fle content for siRNA design is:\n------------------------------------------------------------------------------------------------------------------------------------\n\t>Gene name 1")
       label_03 = QLabel("\tGTTCGTTGCAACAAATTGATGAGCAATGCTTTTTTATAATGCCAACTTTGTACAAAAAAGTTGGCATGGT")
       label_04 = QLabel("\tAGCTGGGATGTTAGGGCTCAGGGAAGAAAAGTCAGAAGACCAGGACCTCCAGGGCCTCAAGGACAAACCC")
-      label_05 = QLabel("\tCTCAAGTTTAAAAAGGTGAAGAAAGATAAGAAAGAAGAGAAAGAGGGCAAGCATGAGCCCGTGCAGCCAT")
-      label_06 = QLabel("\tCAGCCCACCACTCTGCTGAGCCCGCAGAGGCAGGCAAAGCAGAGACATCAGAAGGGTCAGGCTCCGCCCC")
+      label_05 = QLabel("\tCTCAAGTTTAAAAAGGTGAAGAAAGATAAGAAAGAAGAGAAAGAGGGCAAGCATGAGCCCTCTCAGCCAT")
+      label_06 = QLabel("\tCAGCCTCTCACTCTGCTGAGCCCGCAGAGGCAGGCAAAGCAGAGACATCAGAAGGGTCAGGCTCCGCCCC")
       label_07 = QLabel("\tGGCTGTGCCGGAAGCTTCTGCCTCCCCCAAACAGCGGCGCTCCATCATCCGTGACCGGGGACCCATGTAT")
-      label_08 = QLabel("\tGATGACCCCACCCTGCCTGAAGGCTGGACACGGAAGCTTAAGCAAAGGAAATCTGGCCGCTCTGCTGGGA")
+      label_08 = QLabel("\tGATGACCCTCTCCTGCCTGAAGGCTGGACACGGAAGCTTAAGCAAAGGAAATCTGGCCGCTCTGCTGGGA")
       label_09 = QLabel("\tAGTATGATGTGTATTTGATCAATCCCCAGGGAAAAGCCTTTCGCTCTAAAGTGGAGTTGATTGCGTACTT")
       label_010 = QLabel("\tCGAAAAGGTAGGCGACACATCCCTGGACCCTAATGATTTTGACTTCACGGTAACTGGGAGAGGGAGCCCC")
-      label_011 = QLabel("\tTCCCGGCGAGAGCAGAAACCACCTAAGAAGCCCAAATCTCCCAAAGCTCCAGGAACTGGCAGAGGCCGGG")
+      label_011 = QLabel("\tTCCCGGCGAGAGCAGAAACTCTCTAAGAAGCCCAAATCTCCCAAAGCTCCAGGAACTGGCAGAGGCCGGG")
       label_012 = QLabel("\tGACGCCCCAAAGGGAGCGGCACCACGAGACCCAAGGCGGCCACGTCAGAGGGTGTGCAGGTGAAAAGGGT")
       label_013 = QLabel("\tCCTGGAGAAAAGTCCTGGGAAGCTCCTTGTCAAGATGCCTTTTCAAACTTCGCCAGGGGGCAAGGCTGAG")
-      label_014 = QLabel("\tGGGGGTGGGGCCACCACATCCACCCAGGTCATGGTGATCAAACGCCCCGGCAGGAAGCGAAAAGCTGAGG")
+      label_014 = QLabel("\tGGGGGTGGGGCTCTCACATCTCTCCAGGTCATGGTGATCAAACGCCCCGGCAGGAAGCGAAAAGCTGAGG")
       label_015 = QLabel("\tCCGACCCTCAGGCCATTCCCAAGAAACGGGGCCGAAAGCCGGGGAGTGTGGTGGCAGCCGCTGCCGCCGA")
       label_02 = QLabel("------------------------------------------------------------------------------------------------------------------------------------\nIt is very important to follow the input structure showed above to avoid any errors")
       label_4 = QLabel("The output file will be a TXT format and will be created in the software's folder.\n\tExample: 'output_file_name_siRNA_Gibbs_SSD_Date_[Hour].txt' for the siRNA designer\n\t\t'output_file_name_Trivalent_shRNA_Date_[Hour].txt' for the shRNA designer")	  
