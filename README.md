@@ -63,13 +63,18 @@ Step 4:
 
 ![](/images/installing_pyQT5_03.png)
 
+We need to verify the path where the PyQt5 will be installed its looks like as follow:
+
+![](/images/pyqt5_path.png)
+
+
 Step 5:
 
 ![](/images/installing_pyQT5_04.png)
 
 #### Running the script on windows
 
-The final step for running the script is open the python script directory
+The final step for running the script is open the python script directory.
 
 ![](/images/runnig_the_script_00.png)
 
@@ -98,9 +103,8 @@ Here we have the software running.
 ![](/images/runnig_the_script_06.png)
 
 
-<video width="640" height="480" controls>
-  <source src="/videos/installation_and_runnig_in_windows.mp4" type="video/mp4">
-</video>
+[![Watch the video](/images/demo_windows.png)](/videos/installation_and_runnig_in_windows.mp4)
+
 
 ### **Linux (Ubuntu)**
 
@@ -171,3 +175,6 @@ python3 siRNA\ and\ shRNA\ designer\ (SSD\)_release_v1.0.py
 And finally will appear the software window
 
 ![](/images/installation_pip3_09.png)
+
+
+[![Watch the video](/images/demo_ubuntu.png)](/videos/installation_and_running_in_ubuntu_compressed.mp4)
