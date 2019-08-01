@@ -12,10 +12,11 @@ In this repository you will find the python script of software called "All_In_On
 ## Requirenments before run the script
 ### **Windows**
 
-Before to run the script in Windows you need to install:
+Before to run the script in Windows you need to download:
 
-1. [Python 3.5.x](/download/python-3.5.0.exe)
-2. [PyQt5](/download/PyQt5-5.6-gpl-Py3.5-Qt5.6.0-x32-2.exe)
+1. [Python version 3.5.0](https://www.python.org/ftp/python/3.5.0/python-3.5.0.exe)
+2. [PyQt5 version 5.6.0](https://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.6/PyQt5-5.6-gpl-Py3.5-Qt5.6.0-x32-2.exe/download)
+3. [SSD Software script](/download/siRNA_and_shRNA_designer_(SSD)_release_v1.0.zip)
 
 The orther of the installations must be follows as shown.
 
@@ -104,11 +105,17 @@ Here we have the software running.
 
 #### This is the video about installing and runnig on Windows
 
-This video you can download and watch once you wanto run the script.
+This video you can download and watch once you wan to run the script.
 
 [Instructive video](https://www.youtube.com/embed/X0S5jYU3vnU)
 
 ### **Linux (Ubuntu)**
+
+Before to run the script in Windows you need to download:
+
+1. PIP3
+2. PyQt5
+3. [SSD Software script](/download/siRNA_and_shRNA_designer_(SSD)_release_v1.0.zip)
 
 First you need to checke the version of python3 you have using the command:
 ````
@@ -180,6 +187,6 @@ And finally will appear the software window
 
 #### This is the video about installing and runnig on Ubuntu
 
-This video you can download and watch once you wanto run the script.
+This video you can download and watch once you wan to run the script.
 
 [Instructive video](https://www.youtube.com/embed/FC1ttM7NY-0)
