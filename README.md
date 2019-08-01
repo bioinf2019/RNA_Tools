@@ -93,7 +93,7 @@ Then type the word **si** that are the inital letters od the script that we want
 
 ![](/images/runnig_the_script_05.png)
 
-Here we have the software running
+Here we have the software running.
 
 ![](/images/runnig_the_script_06.png)
 
