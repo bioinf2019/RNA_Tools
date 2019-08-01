@@ -102,9 +102,13 @@ Here we have the software running.
 
 ![](/images/runnig_the_script_06.png)
 
+#### This is the video about installing and runnig on Windows
 
 [![Watch the video](/images/demo_windows.png)](/videos/installation_and_runnig_in_windows.mp4)
 
+
+<video id="example_video_1" class="video-js vjs-default-skin" width="640" height="264" src="https://github.com/bioinf2019/RNA_Tools/blob/master/videos/installation_and_runnig_in_windows.mp4" type='video/mp4' />
+</video>
 
 ### **Linux (Ubuntu)**
 
@@ -176,5 +180,6 @@ And finally will appear the software window
 
 ![](/images/installation_pip3_09.png)
 
+#### This is the video about installing and runnig on Ubuntu
 
 [![Watch the video](/images/demo_ubuntu.png)](/videos/installation_and_running_in_ubuntu.mp4)
