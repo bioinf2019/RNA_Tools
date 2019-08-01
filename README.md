@@ -106,9 +106,7 @@ Here we have the software running.
 
 This video you can download and watch once you wanto run the script.
 
-[![Watch the video](/images/demo_windows.png)](/videos/installation_and_runnig_in_windows.mp4)
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/X0S5jYU3vnU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[Instructive video](https://www.youtube.com/embed/X0S5jYU3vnU)
 
 ### **Linux (Ubuntu)**
 
@@ -184,4 +182,4 @@ And finally will appear the software window
 
 This video you can download and watch once you wanto run the script.
 
-[![Watch the video](/images/demo_ubuntu.png)](/videos/installation_and_running_in_ubuntu.mp4)
+[Instructive video](https://www.youtube.com/embed/FC1ttM7NY-0)
