@@ -97,6 +97,11 @@ Here we have the software running.
 
 ![](/images/runnig_the_script_06.png)
 
+
+<video width="640" height="480" controls>
+  <source src="/videos/installation_and_runnig_in_windows.mp4" type="video/mp4">
+</video>
+
 ### **Linux (Ubuntu)**
 
 First you need to checke the version of python3 you have using the command:
