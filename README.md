@@ -14,8 +14,10 @@ In this repository you will find the python script of software called "All_In_On
 
 Before to run the script in Windows you need to install:
 
-* [Python 3.5.x](/download/python-3.5.0.exe)
-* [PyQt5](/download/PyQt5-5.6-gpl-Py3.5-Qt5.6.0-x32-2.exe)
+1. [Python 3.5.x](/download/python-3.5.0.exe)
+2. [PyQt5](/download/PyQt5-5.6-gpl-Py3.5-Qt5.6.0-x32-2.exe)
+
+The orther of the installations must be follows as shown.
 
 #### Installing Python3.5
 
@@ -97,31 +99,70 @@ Here we have the software running
 
 ### **Linux (Ubuntu)**
 
-Before to run the script in Ubuntu Linux we need to install:
-* [Installing PIP](https://www.rosehosting.com/blog/how-to-install-pip-on-ubuntu-16-04/)
-Update and upgrade the system
+First you need to checke the version of python3 you have using the command:
 ````
-sudo apt-get update && sudo apt-get -y upgrade
+python3 --version
 ````
-Next install pip3 
-````
-sudo apt-get install python-pip3
-````
-Finally verify the installation
 
+![](/images/installation_pip3.png)
+
+You have to see the version you have installed like this:
+
+![](/images/installation_pip3_00.png)
+
+Next step is to update and upgrade the system in order to install pip3:
+
+````
+sudo apt-get update
+````
+
+![](/images/installation_pip3_04.png)
+
+````
+sudo apt-get upgrade
+````
+
+![](/images/installation_pip3_05.png)
+
+The system will show you how to install pip3 just runnin this command:
+````
+pip3
+````
+
+![](/images/installation_pip3_01.png)
+
+You have to copy the command that shows you.
+
+![](/images/installation_pip3_02.png)
+
+Then paste on the terminal and run it.
+
+![](/images/installation_pip3_03.png)
+
+You can check the pip3 version using:
 ````
 pip3 -V
 ````
-* [Installing PyQt5](https://pypi.org/project/PyQt5/)
-The version that its needed is for pip3
 
-````
-pip3 install PyQt5
-````
-#### Run the script on Ubuntu
+![](/images/installation_pip3_06.png)
 
-To run the script open the directory where is placed your python file on the Terminal.
+After that we need to install PyQt5, so it will be done with command:
+````
+pip3 install pyqt5
+````
 
+![](/images/installation_pip3_07.png)
+
+#### Running the script on Linux (Ubuntu)
+
+Open the directory where is you script target and the right click and select **Open on terminal**.
+Then type the following command:
 ````
-python3 All_In_One_shRNA_Generator_release_v1.0.py
+python3 siRNA\ and\ shRNA\ designer\ (SSD\)_release_v1.0.py
 ````
+
+![](/images/installation_pip3_08.png)
+
+And finally will appear the software window
+
+![](/images/installation_pip3_09.png)
