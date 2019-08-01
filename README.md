@@ -104,7 +104,7 @@ Here we have the software running.
 
 #### This is the video about installing and runnig on Windows
 
-This video you can download and watch once you wanto run the scrip.
+This video you can download and watch once you wanto run the script.
 
 [![Watch the video](/images/demo_windows.png)](/videos/installation_and_runnig_in_windows.mp4)
 
@@ -180,6 +180,6 @@ And finally will appear the software window
 
 #### This is the video about installing and runnig on Ubuntu
 
-This video you can download and watch once you wanto run the scrip.
+This video you can download and watch once you wanto run the script.
 
 [![Watch the video](/images/demo_ubuntu.png)](/videos/installation_and_running_in_ubuntu.mp4)
