@@ -177,4 +177,4 @@ And finally will appear the software window
 ![](/images/installation_pip3_09.png)
 
 
-[![Watch the video](/images/demo_ubuntu.png)](/videos/installation_and_running_in_ubuntu_compressed.mp4)
+[![Watch the video](/images/demo_ubuntu.png)](/videos/installation_and_running_in_ubuntu.mp4)
