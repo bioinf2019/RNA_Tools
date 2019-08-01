@@ -108,6 +108,8 @@ This video you can download and watch once you wanto run the script.
 
 [![Watch the video](/images/demo_windows.png)](/videos/installation_and_runnig_in_windows.mp4)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/X0S5jYU3vnU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### **Linux (Ubuntu)**
 
 First you need to checke the version of python3 you have using the command:
