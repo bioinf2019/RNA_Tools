@@ -10,7 +10,7 @@ In this repository you will find the python script of software called "All_In_On
 * The software GUI was developed using PyQt5
 
 ## Requirenments before run the script
-### **Windows** [Instructive video](https://www.youtube.com/embed/X0S5jYU3vnU)
+### **Windows** [Instructive video](https://youtu.be/jG7qKrKMu8M)
 
 Before to run the script in Windows you need to download:
 
@@ -68,41 +68,33 @@ We need to verify the path where the PyQt5 will be installed its looks like as f
 
 ![](/images/pyqt5_path.png)
 
-
 Step 5:
 
 ![](/images/installing_pyQT5_04.png)
 
 #### Running the script on windows
 
-The final step for running the script is open the python script directory.
+Once you have downloaded the zipped file that is inside the Python script you will see like this:
 
-![](/images/runnig_the_script_00.png)
+![](/images/runnig_the_script_000.png)
 
-Right click on the path and select copy
+First **right click** onthe zipped file and press the **Extract Here** option.
 
-![](/images/runnig_the_script_01.png)
+![](/images/runnig_the_script_001.png)
 
-Click on the start button
+Then you will have the Python script unzipped. To runn it you just need to **Double clic** on the script and it will run.
 
-![](/images/runnig_the_script_02.png)
+![](/images/runnig_the_script_002.png)
 
-Type the word **cmd** and press **ENTER**
-
-![](/images/runnig_the_script_03.png)
-
-Type **cd** and paste the copied path and press **ENTER**
-
-![](/images/runnig_the_script_04.png)
-
-Then type the word **si** that are the inital letters od the script that we want to run, and press **TAB** and then press **ENTER**
-
-![](/images/runnig_the_script_05.png)
-
-Here we have the software running.
+Finally you will appear the window of the software as shown:
 
 ![](/images/runnig_the_script_06.png)
 
+
+##### NOTES:
+If you cannot run with double cick you have to change the extension file from **py** to **pyw** or just use the command prompt to run it. 
+
+[Running the SSD software using the command prompt](https://youtu.be/X0S5jYU3vnU)
 
 ### **Linux (Ubuntu)** [Instructive video](https://www.youtube.com/embed/FC1ttM7NY)
 
