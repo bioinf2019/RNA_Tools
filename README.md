@@ -104,7 +104,7 @@ Here we have the software running.
 ![](/images/runnig_the_script_06.png)
 
 
-### **Linux (Ubuntu)** [Instructive video](https://www.youtube.com/embed/FC1ttM7NY-0)
+### **Linux (Ubuntu)** [Instructive video](https://www.youtube.com/embed/FC1ttM7NY)
 
 Before to run the script in Windows you need to download:
 
