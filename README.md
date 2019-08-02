@@ -82,7 +82,7 @@ First **right click** onthe zipped file and press the **Extract Here** option.
 
 ![](/images/runnig_the_script_001.png)
 
-Then you will have the Python script unzipped. To runn it you just need to **Double clic** on the script and it will run.
+Then you will have the Python script unzipped. To runn it you just need to **Double click** on the script and it will run.
 
 ![](/images/runnig_the_script_002.png)
 
