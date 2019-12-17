@@ -96,7 +96,7 @@ If you cannot run the script by double-clicking on it, try changing the file ext
 
 [Running the SSD software using the prompt command](https://youtu.be/X0S5jYU3vnU)
 
-### **Linux (Ubuntu)** [Instructive video](https://www.youtube.com/embed/FC1ttM7NY)
+### **Linux (Ubuntu)** [Instructive video](https://youtu.be/FC1ttM7NY-0)
 
 Before running the script on Windows, you need to download:
 
