@@ -172,7 +172,7 @@ Finally, the software window will appear:
 
 
 ### **Windows** 
-1. [How to use SSD software - an example:](https://youtu.be/ooJ6vp6M0Jw)
-2. [Quick Example:](https://youtu.be/7pfQ7EVX5w8)
+1. [How to use SSD software - an example](https://youtu.be/ooJ6vp6M0Jw)
+2. [Quick example](https://youtu.be/7pfQ7EVX5w8)
 
 
