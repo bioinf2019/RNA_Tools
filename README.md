@@ -171,7 +171,7 @@ Finally, the software window will appear:
 ![](/images/installation_pip3_09.png)
 
 
-### **Windows** [How to use SSD software](https://youtu.be/7pfQ7EVX5w8)
+### **Windows** [How to use SSD software - an example](https://youtu.be/7pfQ7EVX5w8)
 
 
 
