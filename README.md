@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this repository you will find the python script of the software  tool called "All_In_One_shRNA_Generator".
+In this repository you will find the python script of the software  tool called “siRNA and multimeric shRNA designer” (SSD).
 
 ## Technical details
 
@@ -12,7 +12,7 @@ In this repository you will find the python script of the software  tool called 
 ## Requirenments to run the script
 ### **Windows** [Instructive video](https://youtu.be/jG7qKrKMu8M)
 
-Before running the script in Windows you need to download:
+Before running the script on Windows you need to download:
 
 1. [Python version 3.5.0](https://www.python.org/ftp/python/3.5.0/python-3.5.0.exe)
 2. [PyQt5 version 5.6.0](https://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.6/PyQt5-5.6-gpl-Py3.5-Qt5.6.0-x32-2.exe/download)
