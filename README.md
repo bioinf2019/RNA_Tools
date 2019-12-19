@@ -18,6 +18,8 @@ Before running the script on Windows you need to download:
 2. [PyQt5 version 5.6.0](https://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.6/PyQt5-5.6-gpl-Py3.5-Qt5.6.0-x32-2.exe/download)
 3. [SSD Software script](/download/siRNA_and_shRNA_designer_(SSD)_release_v1.0.zip)
 
+[Instructive video - How to download the SSD repository](https://www.youtube.com/watch?v=K_eLmiqBpSo&)
+
 The order of the installations must be followed as shown below.
 
 #### Installing Python3.5
