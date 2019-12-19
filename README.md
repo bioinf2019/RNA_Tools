@@ -209,6 +209,7 @@ To generate bivalent and trivalent shRNAs, you must proceed in a similar manner,
 
 
 The bivalent shRNA file will look like this:
+
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/02_Bivalent.png)
 
 
@@ -218,6 +219,7 @@ The bivalent shRNA file will look like this:
 
 
 The trivalent shRNA file will look like this (click to enlarge):
+
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/03_Trivalent.png)
 
 
