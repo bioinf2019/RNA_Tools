@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this repository you will find the python script of the software  tool called “siRNA and multimeric shRNA designer” (SSD).
+In this repository you will find the python script of the software tool called “siRNA and multimeric shRNA designer” (SSD).
 
 ## Technical details
 
@@ -172,6 +172,35 @@ Finally, the software window will appear:
 
 
 ### **Windows** [How to use SSD software - an example](https://youtu.be/7pfQ7EVX5w8)
+
+[Example file](https://github.com/bioinf2019/RNA_Tools/blob/master/Caenorhabditis%20elegans%20Phosphatidylinositol%203-kinase%20catalytic%20subunit%20type%203%20(vps-34)%2C%20partial%20mRNA.txt) used for the SSD software instructional video. *Caenorhabditis elegans* Phosphatidylinositol 3-kinase catalytic subunit type 3 (vps-34), partial mRNA.
+
+
+Once you are done installing the software and have the sequence you want to use, you open the software and manually insert the sequence, or click on the button "Open FASTA (.txt)" to import the file containing the sequence. Do not forget to choose a name for the output files and put it on the "Target name" field.
+
+![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/upload%20fasta.png)
+
+In order to initiate the strand analysis, click on one of the buttons below according to your needs. When you get a successful strand analysis, you will see a pop-up message like the one shown below:
+
+![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/successful%20strand%20analysis.png)
+
+Once you have generated the monovalent sequence file, open it. Go to the monovalent shRNA lid on the SSD software, copy the sense and antisense sequences and paste them on the respective fields. 
+
+![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/monovalent.png)
+
+Then press the "Generate shRNA" button, and you will see a pop-up message like the one shown below:
+
+![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/monovalent%20success.png)
+
+To generate bivalent and trivalent shRNAs, you must proceed in a similar manner, by going to the bivalent or trivalent shRNA lid of the SSD software respectively, opening the respective nivalent or trivalent sequence file, copying and pasting the sequences into the respective fields, and pressing the "Generate shRNA" button.
+
+![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/bivalent.png)
+
+![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/bivalent%20success.png)
+
+![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/trivalent.png)
+
+![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/trivalent%20success.png)
 
 
 
