@@ -194,15 +194,23 @@ Then press the "Generate shRNA" button, and you will see a pop-up message like t
 
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/monovalent%20success.png)
 
+The resulting file will look like this:
+
+![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/01_Monovalent.png)
+
 To generate bivalent and trivalent shRNAs, you must proceed in a similar manner, by going to the bivalent or trivalent shRNA lid of the SSD software respectively, opening the respective nivalent or trivalent sequence file, copying and pasting the sequences into the respective fields, and pressing the "Generate shRNA" button.
 
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/bivalent.png)
 
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/bivalent%20success.png)
 
+![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/02_Bivalent.png)
+
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/trivalent.png)
 
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/trivalent%20success.png)
+
+![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/03_Trivalent.png)
 
 
 
