@@ -194,7 +194,7 @@ Then press the "Generate shRNA" button, and you will see a pop-up message like t
 
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/monovalent%20success.png)
 
-The resulting file will look like this:
+The resulting monovalent shRNA file will look like this:
 
 
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/01_Monovalent.png)
@@ -208,6 +208,7 @@ To generate bivalent and trivalent shRNAs, you must proceed in a similar manner,
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/bivalent%20success.png)
 
 
+The bivalent shRNA file will look like this:
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/02_Bivalent.png)
 
 
@@ -216,6 +217,7 @@ To generate bivalent and trivalent shRNAs, you must proceed in a similar manner,
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/trivalent%20success.png)
 
 
+The trivalent shRNA file will look like this (click to enlarge):
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/03_Trivalent.png)
 
 
