@@ -222,5 +222,18 @@ The trivalent shRNA file will look like this (click to enlarge):
 
 ![](https://github.com/bioinf2019/RNA_Tools/blob/master/images/03_Trivalent.png)
 
+#### Python installation problem: No module named 'encodings'
+This is a crash of Python during a script python running caused by un issue amid the Python installation process on Windows, specifically in the PATH environment variable of Python. 
 
+If the crash occurs in the terminal a message output like this:
+````
+"py_initialize unable to get the locale encoding"
+````
+
+The solution for this issue is reinstalling Python following this installation method:
+
+* Installing the exe/msi as admin.
+* During installation, select "Add Python 3.x to PATH" and "Customize installation".
+
+* Under "Advanced Options," select "Install for current user only"
 
