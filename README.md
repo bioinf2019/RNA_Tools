@@ -94,7 +94,7 @@ Finally, the software window will appear as shown below:
 
 
 ##### NOTES:
-If you cannot run the script by double-clicking on it, try changing the file extension from **py** to **pyw**, or just use the **prompt** command  to run it. 
+If you cannot run the script by double-clicking on it, try changing the file extension from **.py** to **.pyw**, or just use the **prompt** command  to run it. 
 
 #### Python installation problem: No module named 'encodings'
 This is a crash of Python during a script python running caused by un issue amid the Python installation process on Windows, specifically in the PATH environment variable of Python. 
