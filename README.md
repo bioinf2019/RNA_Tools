@@ -1,5 +1,13 @@
 # RNA_Tools
 
+If you make use of this software in your research, please cite as:
+
+Carli, Gabriel José de, Rotela, Abdon Troche, Lubini, Greice, Contiliani, Danyel Fernandes, Benítez Candia, Nidia, Depintor, Thiago S., Abreu, Fabiano Carlos Pinto de, Simões, Zilá Luz Paulino, Fernández Ríos, Danilo, & Pereira, Tiago Campos. (2020). SSD - a free software for designing multimeric mono-, bi- and trivalent shRNAs. Genetics and Molecular Biology, 43(1), e20190300. Epub March 02, 2020. https://doi.org/10.1590/1678-4685-gmb-2019-0300
+
+# Web version
+
+http://shrnadesigner.org/ 
+
 ## Introduction
 
 In this repository you will find the python script of the software tool called “siRNA and multimeric shRNA designer” (SSD).
